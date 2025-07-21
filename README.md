@@ -84,8 +84,8 @@ Agradecemos a todos os contribuidores que ajudaram a tornar este cheatsheet uma 
 
 ## 📞 Contato
 
-- **Website**: [blueprintblog.tech](https://blueprintblog.tech)
-- **Email**: [blueprintlabs@outlook.com]
+- **Website**: [blueprintblog.tech](https://blueprintblog.tech) (em construção)
+- **Email**: [blueprintlabs](mailto:blueprintlabs@outlook.com)
 - **GitHub**: [@genildocs](https://github.com/Genildocs)
 
 ---
