@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arrays - Cheat Sheet</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        color: white;
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .title {
+        font-size: 4rem;
+        font-weight: 800;
+        background: linear-gradient(45deg, #ff0080, #7928ca, #ff0080);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #00d4ff;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .intro-card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .intro-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #ff0080, #7928ca, #00d4ff);
+      }
+
+      .intro-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #ff0080, #00d4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .intro-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #e0e0e0;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--accent-color),
+          var(--accent-color-light)
+        );
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .card-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-right: 1rem;
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .card-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+      }
+
+      .card-desc {
+        font-size: 0.9rem;
+        color: #a0a0a0;
+        line-height: 1.4;
+      }
+
+      .section {
+        margin-bottom: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        margin-bottom: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .points {
+        list-style: none;
+      }
+
+      .points li {
+        position: relative;
+        padding-left: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        color: #e0e0e0;
+      }
+
+      .points li::before {
+        content: '▶';
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+        font-size: 0.7rem;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .metric {
+        text-align: center;
+      }
+
+      .metric-label {
+        font-size: 0.7rem;
+        color: #808080;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.3rem;
+      }
+
+      .metric-value {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--metric-color);
+      }
+
+      .complexity-info {
+        font-size: 0.75rem;
+        color: #b0b0b0;
+        margin-top: 0.3rem;
+      }
+
+      /* Language-specific colors */
+      .c-card {
+        --accent-color: #00599c;
+        --accent-color-light: #4a90c2;
+        --metric-color: #4a90c2;
+      }
+
+      .java-card {
+        --accent-color: #ed8b00;
+        --accent-color-light: #f49c00;
+        --metric-color: #f49c00;
+      }
+
+      .js-card {
+        --accent-color: #f7df1e;
+        --accent-color-light: #f9e71e;
+        --metric-color: #f9e71e;
+      }
+
+      .python-card {
+        --accent-color: #3776ab;
+        --accent-color-light: #4b8bbe;
+        --metric-color: #4b8bbe;
+      }
+
+      .csharp-card {
+        --accent-color: #512bd4;
+        --accent-color-light: #6f42c1;
+        --metric-color: #6f42c1;
+      }
+
+      .code-snippet {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        padding: 0.8rem;
+        margin-top: 1rem;
+        font-family: 'Courier New', monospace;
+        font-size: 0.75rem;
+        border-left: 3px solid var(--accent-color);
+        line-height: 1.4;
+      }
+
+      @media (max-width: 768px) {
+        .title {
+          font-size: 2.5rem;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1 class="title">CHEAT SHEET</h1>
+        <p class="subtitle">ARRAYS - ESTRUTURA DE DADOS SEQUENCIAL</p>
+      </div>
+
+      <div class="intro-card">
+        <h2 class="intro-title">O QUE SÃO ARRAYS?</h2>
+        <p class="intro-text">
+          Arrays são estruturas de dados que armazenam elementos do mesmo tipo
+          em posições contíguas de memória. Cada elemento é acessado através de
+          um índice numérico, permitindo acesso direto O(1) a qualquer posição.
+          São a base para muitas outras estruturas de dados e fundamentais na
+          programação.
+        </p>
+      </div>
+
+      <div class="grid">
+        <!-- C -->
+        <div class="card c-card">
+          <div class="card-header">
+            <div class="card-icon">C</div>
+            <div>
+              <h2 class="card-title">C</h2>
+              <p class="card-desc">
+                Arrays estáticos com controle manual de memória
+              </p>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Características</h3>
+            <ul class="points">
+              <li>Tamanho fixo definido em tempo de compilação</li>
+              <li>Elementos armazenados sequencialmente na memória</li>
+              <li>Não há verificação de bounds automática</li>
+              <li>Nome do array é um ponteiro para o primeiro elemento</li>
+              <li>Acesso via aritmética de ponteiros</li>
+              <li>Passados por referência para funções</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Operações Principais</h3>
+            <ul class="points">
+              <li>Acesso: array[index] ou *(array + index)</li>
+              <li>Inicialização: int arr[5] = {1,2,3,4,5}</li>
+              <li>Cópia: usar memcpy() ou loop manual</li>
+              <li>Busca: implementação manual O(n)</li>
+              <li>Tamanho: sizeof(array)/sizeof(array[0])</li>
+            </ul>
+          </div>
+
+          <div class="code-snippet">
+            int arr[5] = {1, 2, 3, 4, 5};<br />
+            printf("%d", arr[0]); // 1<br />
+            printf("%d", *(arr + 2)); // 3<br />
+            int size = sizeof(arr)/sizeof(int);
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Acesso</div>
+              <div class="metric-value">O(1)</div>
+              <div class="complexity-info">Direto via índice</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Inserção</div>
+              <div class="metric-value">N/A</div>
+              <div class="complexity-info">Tamanho fixo</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Java -->
+        <div class="card java-card">
+          <div class="card-header">
+            <div class="card-icon">J</div>
+            <div>
+              <h2 class="card-title">JAVA</h2>
+              <p class="card-desc">
+                Arrays como objetos com verificação de tipos
+              </p>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Características</h3>
+            <ul class="points">
+              <li>Arrays são objetos com atributo .length</li>
+              <li>
+                Verificação automática de bounds
+                (ArrayIndexOutOfBoundsException)
+              </li>
+              <li>Inicializados com valores padrão (0, null, false)</li>
+              <li>Suporte a arrays multidimensionais</li>
+              <li>Tipos primitivos e objetos suportados</li>
+              <li>Gerenciamento automático de memória (GC)</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Operações Principais</h3>
+            <ul class="points">
+              <li>Acesso: array[index] com verificação de bounds</li>
+              <li>Clonagem: array.clone() ou Arrays.copyOf()</li>
+              <li>Busca: Arrays.binarySearch() para arrays ordenados</li>
+              <li>Ordenação: Arrays.sort() O(n log n)</li>
+              <li>Comparação: Arrays.equals() e Arrays.deepEquals()</li>
+            </ul>
+          </div>
+
+          <div class="code-snippet">
+            int[] arr = new int[5];<br />
+            int[] arr2 = {1, 2, 3, 4, 5};<br />
+            System.out.println(arr.length); // 5<br />
+            Arrays.sort(arr2);<br />
+            int index = Arrays.binarySearch(arr2, 3);
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Acesso</div>
+              <div class="metric-value">O(1)</div>
+              <div class="complexity-info">Com bounds check</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Busca Binária</div>
+              <div class="metric-value">O(log n)</div>
+              <div class="complexity-info">Arrays.binarySearch()</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="card js-card">
+          <div class="card-header">
+            <div class="card-icon">JS</div>
+            <div>
+              <h2 class="card-title">JAVASCRIPT</h2>
+              <p class="card-desc">Arrays dinâmicos como objetos especiais</p>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Características</h3>
+            <ul class="points">
+              <li>Arrays são objetos com propriedade .length</li>
+              <li>Tamanho dinâmico (cresce/diminui automaticamente)</li>
+              <li>Pode conter elementos de tipos diferentes</li>
+              <li>Índices podem ter "buracos" (sparse arrays)</li>
+              <li>Suporte a métodos funcionais nativos</li>
+              <li>Acesso a índices inexistentes retorna undefined</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Operações Principais</h3>
+            <ul class="points">
+              <li>Adicionar: push() O(1), unshift() O(n)</li>
+              <li>Remover: pop() O(1), shift() O(n), splice() O(n)</li>
+              <li>Busca: indexOf() O(n), find() O(n)</li>
+              <li>Transformação: map(), filter(), reduce()</li>
+              <li>Iteração: forEach(), for...of, for...in</li>
+            </ul>
+          </div>
+
+          <div class="code-snippet">
+            const arr = [1, 2, 3, 4, 5];<br />
+            arr.push(6); // [1,2,3,4,5,6]<br />
+            const doubled = arr.map(x => x * 2);<br />
+            const evens = arr.filter(x => x % 2 === 0);<br />
+            const sum = arr.reduce((a, b) => a + b, 0);
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Push/Pop</div>
+              <div class="metric-value">O(1)</div>
+              <div class="complexity-info">Final do array</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Splice</div>
+              <div class="metric-value">O(n)</div>
+              <div class="complexity-info">Meio do array</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Python -->
+        <div class="card python-card">
+          <div class="card-header">
+            <div class="card-icon">PY</div>
+            <div>
+              <h2 class="card-title">PYTHON</h2>
+              <p class="card-desc">Lists dinâmicas com sintaxe poderosa</p>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Características</h3>
+            <ul class="points">
+              <li>Lists são arrays dinâmicos mutáveis</li>
+              <li>Suporte a slicing avançado [start:end:step]</li>
+              <li>Podem conter qualquer tipo de objeto</li>
+              <li>List comprehensions para criação concisa</li>
+              <li>Suporte a operadores + e * para concatenação</li>
+              <li>Índices negativos para acesso reverso</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Operações Principais</h3>
+            <ul class="points">
+              <li>Adicionar: append() O(1), insert() O(n)</li>
+              <li>Remover: pop() O(1), remove() O(n)</li>
+              <li>Busca: index() O(n), count() O(n)</li>
+              <li>Ordenação: sort() O(n log n), reverse() O(n)</li>
+              <li>Slicing: list[start:end:step] O(k)</li>
+            </ul>
+          </div>
+
+          <div class="code-snippet">
+            arr = [1, 2, 3, 4, 5]<br />
+            arr.append(6) # [1,2,3,4,5,6]<br />
+            print(arr[-1]) # 6 (último elemento)<br />
+            squared = [x**2 for x in arr]<br />
+            print(arr[1:4:2]) # [2, 4]
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Append</div>
+              <div class="metric-value">O(1)</div>
+              <div class="complexity-info">Amortizado</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Slicing</div>
+              <div class="metric-value">O(k)</div>
+              <div class="complexity-info">k = tamanho slice</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- C# -->
+        <div class="card csharp-card">
+          <div class="card-header">
+            <div class="card-icon">C#</div>
+            <div>
+              <h2 class="card-title">C#</h2>
+              <p class="card-desc">Arrays tipados com Collections ricas</p>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Características</h3>
+            <ul class="points">
+              <li>Arrays são tipos de referência imutáveis em tamanho</li>
+              <li>Verificação de bounds automática</li>
+              <li>Suporte a arrays multidimensionais e jagged</li>
+              <li>List&lt;T&gt; para arrays dinâmicos tipados</li>
+              <li>LINQ para consultas funcionais</li>
+              <li>Integração com .NET Collections</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">Operações Principais</h3>
+            <ul class="points">
+              <li>Array: Acesso direto O(1), tamanho fixo</li>
+              <li>List&lt;T&gt;: Add() O(1), Insert() O(n)</li>
+              <li>Busca: Array.IndexOf() O(n), BinarySearch() O(log n)</li>
+              <li>LINQ: Where(), Select(), OrderBy()</li>
+              <li>Conversão: ToArray(), ToList()</li>
+            </ul>
+          </div>
+
+          <div class="code-snippet">
+            int[] arr = {1, 2, 3, 4, 5};<br />
+            List&lt;int&gt; list = new List&lt;int&gt;(arr);<br />
+            list.Add(6);<br />
+            var evens = arr.Where(x => x % 2 == 0);<br />
+            var sorted = arr.OrderBy(x => x).ToArray();
+          </div>
+
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Array Access</div>
+              <div class="metric-value">O(1)</div>
+              <div class="complexity-info">Bounds checked</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">List&lt;T&gt; Add</div>
+              <div class="metric-value">O(1)</div>
+              <div class="complexity-info">Amortizado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
