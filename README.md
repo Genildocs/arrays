@@ -21,8 +21,8 @@ Este cheatsheet é um recurso **público e colaborativo** que visa fornecer uma 
 3. Explore as diferentes linguagens e suas características
 
 ```bash
-git clone https://github.com/seu-usuario/arrays-cheatsheet.git
-cd arrays-cheatsheet
+git clone https://github.com/Genildocs/arrays.git
+cd arrays
 open index.html
 ```
 
