@@ -76,7 +76,7 @@ O cheatsheet está disponível online em: [URL do seu site]
 
 Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-**Copyright (c) 2024 blueprintblog.tech**
+**Copyright (c) 2025 blueprintblog.tech**
 
 ## 🙏 Agradecimentos
 
